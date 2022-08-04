@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+
+    env:
+      CLIENT_NAME: hotel-minimal-client
+      BACKEND_NAME: hotel-minimal-backend
+      BACKEND_URL: 'https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Prepare build directory
+        run: rm -rf build && mkdir build
+      - name: Build client
+        run: |
+          chmod +x ./scripts/build_client.sh
+          ./scripts/build_client.sh $CLIENT_NAME-latest
+      - name: Build backend
+        run: |
+          chmod +x ./scripts/build_backend.sh
+          ./scripts/build_backend.sh $BACKEND_NAME-latest
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          path: build/*
+      - name: Deploy backend
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          appdir: 'backend'
+          stack: 'heroku-22'
+          region: 'eu'
+          procfile: 'web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/backend.jar'
+          healthcheck: '${{ env.BACKEND_URL }}'
+          rollbackonhealthcheckfailed: true
+      - name: Create release
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: '${{ secrets.GITHUB_TOKEN }}'
+          automatic_release_tag: 'latest'
+          prerelease: false
+          title: 'Latest build'
+          files: build/*
