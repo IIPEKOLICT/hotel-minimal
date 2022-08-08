@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+def keystoreProperties = new Properties()
+def keystoreFile = file('keystore/keystore.properties')
+def hasKeystore = keystoreFile.exists() || System.getenv('KEYSTORE_PASSWORD')
+def backendUrl = System.getenv("BACKEND_URL") ?: "http://localhost:5000"
+
 android {
     compileSdk 32
 
@@ -16,12 +21,43 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    if (hasKeystore) {
+        signingConfigs {
+            release {
+                if (keystoreFile.exists()) {
+                    file('keystore/keystore.properties').withInputStream {
+                        keystoreProperties.load(it)
+                    }
+
+                    storeFile file("$keystoreProperties.storeFile")
+                    storePassword "$keystoreProperties.storePassword"
+                    keyAlias "$keystoreProperties.keyAlias"
+                    keyPassword "$keystoreProperties.keyPassword"
+                } else {
+                    storeFile file('keystore/android_keystore.keystore')
+                    storePassword System.getenv('KEYSTORE_PASSWORD')
+                    keyAlias System.getenv('RELEASE_SIGN_KEY_ALIAS')
+                    keyPassword System.getenv('RELEASE_SIGN_KEY_PASSWORD')
+                }
+            }
+        }
+    }
+
     buildFeatures {
         viewBinding = true
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BACKEND_URL", "\"$backendUrl\"")
+        }
+
         release {
+            if (hasKeystore) {
+                signingConfig signingConfigs.release
+            }
+
+            buildConfigField("String", "BACKEND_URL", "\"$backendUrl\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

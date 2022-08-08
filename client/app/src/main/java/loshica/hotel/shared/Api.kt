@@ -1,5 +1,6 @@
 package loshica.hotel.shared
 
+import loshica.hotel.BuildConfig
 import loshica.hotel.interfaces.IApi
 import loshica.hotel.repositories.CommentRepository
 import loshica.hotel.repositories.MainRepository
@@ -10,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Api : IApi {
-    private val BASE_URL = System.getenv("BACKEND_URL") ?: "http://localhost:5000"
+    private const val BASE_URL: String = BuildConfig.BACKEND_URL;
     private var httpClient: Retrofit? = null
 
     private fun getClient(): Retrofit {
