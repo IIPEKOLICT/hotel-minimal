@@ -46,7 +46,7 @@ jobs:
           appdir: 'backend'
           stack: 'heroku-22'
           region: 'eu'
-          procfile: 'web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/backend.jar'
+          procfile: 'web: ./build/install/backend/bin/backend'
           healthcheck: '${{ env.BACKEND_URL }}'
           rollbackonhealthcheckfailed: true
       - name: Create release
