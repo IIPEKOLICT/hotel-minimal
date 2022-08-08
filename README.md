@@ -21,8 +21,6 @@ Task on subject "Mobile Systems Software" in BSUIR
 - Retrofit
 - MVVM
 
-[Spring reference](backend/README.md)
-
 ### Repository secrets
 
 - `HEROKU_APP_NAME` name of backend Heroku app
