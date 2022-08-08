@@ -37,10 +37,6 @@ jobs:
         run: |
           chmod +x ./scripts/build_backend.sh
           ./scripts/build_backend.sh $BACKEND_NAME-latest
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          path: build/*
       - name: Deploy backend
         uses: akhileshns/heroku-deploy@v3.12.12
         with:

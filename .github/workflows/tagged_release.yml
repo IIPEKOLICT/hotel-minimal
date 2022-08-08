@@ -25,7 +25,6 @@ jobs:
           java-version: 17
       - name: Get tag
         uses: olegtarasov/get-tag@v2.1
-        id: getTag
       - name: Checkout keystore repo
         uses: actions/checkout@v2
         with:
@@ -42,10 +41,6 @@ jobs:
         run: |
           chmod +x ./scripts/build_backend.sh
           ./scripts/build_backend.sh $BACKEND_NAME-$GIT_TAG_NAME
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          path: build/*
       - name: Deploy backend
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
