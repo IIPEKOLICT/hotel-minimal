@@ -23,12 +23,20 @@ Task on subject "Mobile Systems Software" in BSUIR
 
 [Spring reference](backend/README.md)
 
+### Repository secrets
+
+- `HEROKU_APP_NAME` name of backend Heroku app
+- `HEROKU_API_KEY` used Heroku api key for deploy backend
+- `HEROKU_EMAIL` used Heroku email for deploy backend
+- `KEYSTORE_GIT_REPOSITORY` name of git repository with keystore for mobile client
+- `KEYSTORE_ACCESS_TOKEN` token for get access to keystore repository
+- `KEYSTORE_PASSWORD` password of used keystore
+- `RELEASE_SIGN_KEY_ALIAS` used alias for sign app using keystore
+- `RELEASE_SIGN_KEY_PASSWORD` used password for sign app using keystore
+
 ### Environment variables
 
-- `HEROKU_API_KEY` used heroku api key for deploy backend (set in repo secrets)
-- `HEROKU_EMAIL` used heroku email for deploy backend (set in repo secrets)
-- `HEROKU_APP_NAME` used heroku app name for deploy backend (set in repo secrets)
-- `PORT` used port by app
+- `PORT` used port by backend
 - `SPRING_DATASOURCE_URL` db url string
 - `SPRING_DATASOURCE_USERNAME` db username
 - `SPRING_DATASOURCE_PASSWORD` db password
