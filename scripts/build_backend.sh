@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf build
+mkdir build
 cd backend
 
 echo Build fatJAR file...

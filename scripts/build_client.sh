@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -rf build
+mkdir build
 cd client
 
 echo Test client code...

@@ -1,6 +1,6 @@
-_hotel-api_
+_hotel-minimal_
 
-# Spring boot kotlin backend app for hotel project
+# Spring boot + native android app
 
 Task on subject "Mobile Systems Software" in BSUIR
 
@@ -51,14 +51,14 @@ create database hotel_minimal;
 ### Load project
 
 ```shell
-git clone git@github.com:BSUIR-IIPEKOLICT/hotel-minimal.git
+git clone git@github.com:IIPEKOLICT/hotel-minimal.git
 cd hotel-minimal
 ```
 
 ### Start backend locally (needed 17 Java)
 
 ```shell
-cd server
+cd backend
 ./gradlew build
 ./gradlew bootRun
 ```
@@ -73,5 +73,5 @@ java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/backend.jar
 
 ```shell
 chmod +x ./scripts/build_client.sh
-./scripts/build_client.sh $CLIENT_NAME
+./scripts/build_client.sh $CLIENT_NAME-$GIT_TAG_NAME
 ```
