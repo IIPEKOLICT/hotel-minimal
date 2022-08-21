@@ -2,7 +2,7 @@
 
 rm -rf build
 mkdir build
-cd backend
+cd ktor-backend || exit
 
 echo Build fatJAR file...
 

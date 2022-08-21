@@ -2,7 +2,7 @@
 
 rm -rf build
 mkdir build
-cd client
+cd client || exit
 
 echo Test client code...
 
