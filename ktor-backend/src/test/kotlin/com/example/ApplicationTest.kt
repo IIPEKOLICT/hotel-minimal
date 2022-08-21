@@ -12,6 +12,7 @@ class ApplicationTest {
         application {
             configure()
             mainController()
+            typeController()
         }
 
         client.get("/").apply {

@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.shared.DatabaseManager
+import com.example.data.DatabaseManager
 import io.ktor.http.*
 import io.ktor.serialization.gson.*
 import io.ktor.server.netty.EngineMain
@@ -27,5 +27,5 @@ fun Application.configure() {
         }
     }
 
-    DatabaseManager.connect()
+    DatabaseManager.init(environment.config)
 }
