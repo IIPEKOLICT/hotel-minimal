@@ -1,6 +1,6 @@
-package com.example.data.models
+package com.example.models.entities
 
-import com.example.data.tables.Comments
+import com.example.models.tables.Comments
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.data.DatabaseManager
+import com.example.dao.DatabaseManager
 import io.ktor.http.*
 import io.ktor.serialization.gson.*
 import io.ktor.server.netty.EngineMain

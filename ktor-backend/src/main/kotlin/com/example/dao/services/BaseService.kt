@@ -1,16 +1,16 @@
-package com.example.data.services
+package com.example.dao.services
 
-import com.example.data.interfaces.IBaseService
+import com.example.dao.interfaces.IBaseService
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 
-abstract class BaseService<M: IntEntity, C : IntEntityClass<M>>(protected val model: C) : IBaseService<M> {
+abstract class BaseService<E: IntEntity, R : IntEntityClass<E>>(protected val repository: R) : IBaseService<E> {
     private val modelClassName: String
         get() {
             return try {
-                val classNameParsed: List<String> = model.javaClass.declaringClass.toString().split(".")
+                val classNameParsed: List<String> = repository.javaClass.declaringClass.toString().split(".")
                 classNameParsed[classNameParsed.size - 1]
             } catch (e: Exception) {
                 "Entity"
@@ -21,17 +21,17 @@ abstract class BaseService<M: IntEntity, C : IntEntityClass<M>>(protected val mo
         return newSuspendedTransaction(Dispatchers.IO) { callback() }
     }
 
-    override suspend fun getAll(): List<M> {
-        return query { model.all().toList() }
+    override suspend fun getAll(): List<E> {
+        return query { repository.all().toList() }
     }
 
-    override suspend fun getById(id: Int): M {
+    override suspend fun getById(id: Int): E {
         return query {
-            model.findById(id) ?: throw RuntimeException("$modelClassName with id '$id' not found")
+            repository.findById(id) ?: throw RuntimeException("$modelClassName with id '$id' not found")
         }
     }
 
     override suspend fun delete(id: Int) {
-        return query { model.findById(id)?.delete() }
+        return query { repository.findById(id)?.delete() }
     }
 }

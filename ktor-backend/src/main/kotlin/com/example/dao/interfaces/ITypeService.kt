@@ -1,7 +1,7 @@
-package com.example.data.interfaces
+package com.example.dao.interfaces
 
-import com.example.data.dtos.TypeDto
-import com.example.data.models.Type
+import com.example.dtos.TypeDto
+import com.example.models.entities.Type
 
 interface ITypeService : IBaseService<Type> {
     suspend fun create(dto: TypeDto): Type

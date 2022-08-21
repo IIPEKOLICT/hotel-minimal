@@ -1,8 +1,8 @@
-package com.example.data.models
+package com.example.models.entities
 
-import com.example.data.dtos.TypeDto
-import com.example.data.tables.Rooms
-import com.example.data.tables.Types
+import com.example.dtos.TypeDto
+import com.example.models.tables.Rooms
+import com.example.models.tables.Types
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

@@ -1,7 +1,7 @@
 package com.example.controllers
 
-import com.example.data.dtos.TypeDto
-import com.example.data.services.TypeService
+import com.example.dtos.TypeDto
+import com.example.dao.services.TypeService
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*

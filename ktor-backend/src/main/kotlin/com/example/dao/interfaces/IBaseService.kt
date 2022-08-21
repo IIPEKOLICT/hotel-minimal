@@ -1,4 +1,4 @@
-package com.example.data.interfaces
+package com.example.dao.interfaces
 
 import org.jetbrains.exposed.dao.IntEntity
 

@@ -1,4 +1,4 @@
-package com.example.data.dtos
+package com.example.dtos
 
 data class TypeDto(
     val id: Int = 0,
