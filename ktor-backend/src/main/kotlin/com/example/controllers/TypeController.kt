@@ -1,59 +1,23 @@
 package com.example.controllers
 
-import com.example.dtos.TypeDto
+import com.example.annotations.Handler
 import com.example.dao.services.TypeService
 import io.ktor.server.application.*
-import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
-fun Application.typeController() {
-    routing {
-        get("/types") {
-            try {
-                call.respond(TypeService.getAll().map { it.toDto() })
-            } catch (e: Exception) {
-                call.respond(e.message ?: "Something went wrong")
-            }
-        }
+class TypeController(application: Application) : Controller(application) {
 
-        get("/types/{id}") {
-            try {
-                val id: Int = call.parameters.getOrFail("id").toInt()
-                call.respond(TypeService.getById(id).toDto())
-            } catch (e: Exception) {
-                call.respond(e.message ?: "Something went wrong")
-            }
-        }
+    override val subRoute: String = "types"
 
-        post("/types") {
-            try {
-                val dto: TypeDto = call.receive()
-                call.respond(TypeService.create(dto).toDto())
-            } catch (e: Exception) {
-                call.respond(e.message ?: "Something went wrong")
-            }
-        }
+    @Handler
+    fun getAll() = get {
+        it.call.respond(TypeService.getAll().map { type -> type.toDto() })
+    }
 
-        put("/types/{id}") {
-            try {
-                val id: Int = call.parameters.getOrFail("id").toInt()
-                val dto: TypeDto = call.receive()
-                call.respond(TypeService.change(id, dto).toDto())
-            } catch (e: Exception) {
-                call.respond(e.message ?: "Something went wrong")
-            }
-        }
-
-        delete("/types/{id}") {
-            try {
-                val id: Int = call.parameters.getOrFail("id").toInt()
-                TypeService.delete(id)
-                call.respond(mapOf("status" to "ok"))
-            } catch (e: Exception) {
-                call.respond(e.message ?: "Something went wrong")
-            }
-        }
+    @Handler
+    fun getById() = get("{id}") {
+        val id: Int = it.call.parameters.getOrFail("id").toInt()
+        it.call.respond(TypeService.getById(id).toDto())
     }
 }
