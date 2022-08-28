@@ -1,6 +1,7 @@
 package com.example.dao.services
 
 import com.example.dao.interfaces.IBaseService
+import com.example.errors.EntityNotFoundError
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -27,7 +28,7 @@ abstract class BaseService<E: IntEntity, R : IntEntityClass<E>>(protected val re
 
     override suspend fun getById(id: Int): E {
         return query {
-            repository.findById(id) ?: throw RuntimeException("$modelClassName with id '$id' not found")
+            repository.findById(id) ?: throw EntityNotFoundError(modelClassName, id)
         }
     }
 
