@@ -1,10 +1,12 @@
 #!/bin/bash
 
-cd backend
+rm -rf build
+mkdir build
+cd backend || exit
 
 echo Build fatJAR file...
 
-./gradlew build
+./gradlew build -x test
 
 echo Move output backend file to build directory...
 
