@@ -1,7 +1,7 @@
 package com.example
 
-import com.example.controllers.MainController
-import com.example.controllers.TypeController
+import com.example.controllers.*
+import com.example.core.Reflector
 import com.example.dao.DatabaseManager
 import io.ktor.http.*
 import io.ktor.serialization.gson.*
@@ -31,6 +31,5 @@ fun Application.configure() {
 
     DatabaseManager.init(environment.config)
 
-    MainController(this).injectHandlers()
-    TypeController(this).injectHandlers()
+    Reflector(this).launch(EmptyController(), TestController(), LolController())
 }
