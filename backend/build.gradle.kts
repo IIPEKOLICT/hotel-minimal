@@ -1,42 +1,53 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+val ktorVersion: String by project
+val kotlinVersion: String by project
+val logbackVersion: String by project
+val pgVersion: String by project
+val exposedVersion: String by project
 
 plugins {
-    id("org.springframework.boot") version "2.6.3"
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    kotlin("jvm") version "1.6.21"
-    kotlin("plugin.spring") version "1.6.21"
-    kotlin("plugin.jpa") version "1.6.21"
+    application
+    kotlin("jvm") version "1.7.10"
+    id("io.ktor.plugin") version "2.1.0"
 }
 
-group = "loshica.api"
+group = "com.example"
 
-java.sourceCompatibility = JavaVersion.VERSION_17
+tasks {
+    create("stage").dependsOn("installDist")
+}
+
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+
+    val isDevelopment: Boolean = project.ext.has("development")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
+}
 
 repositories {
     mavenCentral()
-}
 
-dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.7")
-    implementation("org.springframework:spring-web:5.3.20")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.6.7")
-
-    implementation("com.zaxxer:HikariCP:5.0.1")
-
-    runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
+dependencies {
+    implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-cors-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-gson-jvm:$ktorVersion")
+    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
+
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.postgresql:postgresql:$pgVersion")
+    implementation("com.zaxxer:HikariCP:5.0.1")
+
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+    implementation("io.ktor:ktor-server-call-logging:$ktorVersion")
+
+
+    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
