@@ -6,18 +6,23 @@ import com.example.models.tables.Comments
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class Comment(id: EntityID<Int>) : IntEntity(id), IEntity<CommentDto, CommentDto> {
-    val room: Room by Room referencedOn Comments.room
+    var room: Room by Room referencedOn Comments.room
 
     var content: String by Comments.content
 
     override fun toDto(): CommentDto {
-        return CommentDto(
-            id = id.value,
-            room = room.id.value,
-            content = content
-        )
+        val comment: Comment = this
+
+        return transaction {
+            CommentDto(
+                id = comment.id.value,
+                room = comment.room.id.value,
+                content = comment.content
+            )
+        }
     }
 
     override fun toPopulatedDto(): CommentDto = toDto()

@@ -1,6 +1,5 @@
 val ktorVersion: String by project
 val kotlinVersion: String by project
-val ktormVersion: String by project
 val logbackVersion: String by project
 val pgVersion: String by project
 val exposedVersion: String by project
@@ -42,8 +41,6 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
-//    implementation("org.ktorm:ktorm-core:$ktorm_version")
-//    implementation("org.ktorm:ktorm-support-postgresql:$ktorm_version")
     implementation("org.postgresql:postgresql:$pgVersion")
     implementation("com.zaxxer:HikariCP:5.0.1")
 

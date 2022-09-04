@@ -6,6 +6,7 @@ import com.example.models.tables.Types
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*
+
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -34,6 +35,4 @@ object DatabaseManager {
             SchemaUtils.create(Comments, Rooms, Types)
         }
     }
-
-    fun getDatabase(): Database = database ?: throw RuntimeException("Can't connect to database")
 }

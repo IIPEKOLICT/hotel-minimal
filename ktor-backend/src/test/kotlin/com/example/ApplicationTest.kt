@@ -13,6 +13,8 @@ class ApplicationTest {
             configure()
             mainController()
             typeController()
+            roomController()
+            commentController()
         }
 
         client.get("/").apply {

@@ -32,7 +32,10 @@ abstract class BaseService<E: IntEntity, R : IntEntityClass<E>>(protected val re
         }
     }
 
-    override suspend fun delete(id: Int) {
-        return query { repository.findById(id)?.delete() }
+    override suspend fun delete(id: Int): Int {
+        return query {
+            repository.findById(id)?.delete()
+            id
+        }
     }
 }
