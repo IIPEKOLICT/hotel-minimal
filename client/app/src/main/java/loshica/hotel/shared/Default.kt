@@ -1,8 +1,8 @@
 package loshica.hotel.shared
 
-import loshica.hotel.models.Comment
-import loshica.hotel.models.Room
-import loshica.hotel.models.Type
+import loshica.hotel.domain.models.Comment
+import loshica.hotel.domain.models.Room
+import loshica.hotel.domain.models.Type
 
 object Default {
     private val TYPE = Type(name = "example type", price = 123)

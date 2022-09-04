@@ -12,8 +12,8 @@ import androidx.lifecycle.Observer
 import loshica.hotel.R
 import loshica.hotel.databinding.RoomModalBinding
 import loshica.hotel.dtos.RoomDto
-import loshica.hotel.models.Room
-import loshica.hotel.models.Type
+import loshica.hotel.domain.models.Room
+import loshica.hotel.domain.models.Type
 import loshica.hotel.shared.Default
 import loshica.hotel.viewModels.RoomViewModel
 import loshica.hotel.viewModels.TypeViewModel

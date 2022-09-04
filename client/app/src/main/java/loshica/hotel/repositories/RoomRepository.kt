@@ -2,8 +2,8 @@ package loshica.hotel.repositories
 
 import loshica.hotel.dtos.DeleteDto
 import loshica.hotel.dtos.RoomDto
-import loshica.hotel.models.Comment
-import loshica.hotel.models.Room
+import loshica.hotel.domain.models.Comment
+import loshica.hotel.domain.models.Room
 import retrofit2.Response
 import retrofit2.http.*
 

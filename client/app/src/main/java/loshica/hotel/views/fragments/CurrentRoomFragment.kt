@@ -10,7 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import loshica.hotel.databinding.CurrentRoomFragmentBinding
 import loshica.hotel.interfaces.IMainActivity
-import loshica.hotel.models.Room
+import loshica.hotel.domain.models.Room
 import loshica.hotel.shared.Position
 import loshica.hotel.viewModels.RoomViewModel
 import loshica.hotel.views.modals.RoomModal

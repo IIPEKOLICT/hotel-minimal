@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import loshica.hotel.databinding.CommentFragmentBinding
 import loshica.hotel.interfaces.IPickHandler
-import loshica.hotel.models.Comment
+import loshica.hotel.domain.models.Comment
 import loshica.hotel.viewModels.CommentViewModel
 import loshica.hotel.views.adapters.CommentAdapter
 import loshica.hotel.views.modals.CommentModal

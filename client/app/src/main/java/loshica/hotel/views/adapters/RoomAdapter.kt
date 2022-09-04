@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import loshica.hotel.databinding.RoomCardBinding
 import loshica.hotel.interfaces.IPickHandler
-import loshica.hotel.models.Room
+import loshica.hotel.domain.models.Room
 
 class RoomAdapter(private val pickHandler: IPickHandler) : RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 

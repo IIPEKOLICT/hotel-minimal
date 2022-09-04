@@ -1,7 +1,7 @@
 package loshica.hotel.repositories
 
 import loshica.hotel.dtos.DeleteDto
-import loshica.hotel.models.Comment
+import loshica.hotel.domain.models.Comment
 import retrofit2.Response
 import retrofit2.http.*
 

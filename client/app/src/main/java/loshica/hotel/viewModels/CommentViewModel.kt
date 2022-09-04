@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import loshica.hotel.core.BaseViewModel
-import loshica.hotel.models.Comment
+import loshica.hotel.domain.models.Comment
 import loshica.hotel.shared.Default
 
 class CommentViewModel(override val app: Application): BaseViewModel(app) {

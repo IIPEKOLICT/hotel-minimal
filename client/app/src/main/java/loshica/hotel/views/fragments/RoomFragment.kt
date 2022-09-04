@@ -12,7 +12,7 @@ import loshica.hotel.databinding.RoomFragmentBinding
 import loshica.hotel.views.adapters.RoomAdapter
 import loshica.hotel.interfaces.IMainActivity
 import loshica.hotel.interfaces.IPickHandler
-import loshica.hotel.models.Room
+import loshica.hotel.domain.models.Room
 import loshica.hotel.shared.Position
 import loshica.hotel.viewModels.CommentViewModel
 import loshica.hotel.viewModels.RoomViewModel

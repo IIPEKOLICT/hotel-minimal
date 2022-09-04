@@ -1,4 +1,4 @@
-package loshica.hotel.models
+package loshica.hotel.domain.models
 
 import com.google.gson.annotations.SerializedName
 import loshica.hotel.dtos.RoomDto

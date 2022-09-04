@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import loshica.hotel.databinding.CommentCardBinding
 import loshica.hotel.interfaces.IPickHandler
-import loshica.hotel.models.Comment
+import loshica.hotel.domain.models.Comment
 
 class CommentAdapter(
     private val pickHandler: IPickHandler

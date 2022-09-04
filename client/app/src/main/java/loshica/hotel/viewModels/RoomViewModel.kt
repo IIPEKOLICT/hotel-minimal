@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import loshica.hotel.core.BaseViewModel
 import loshica.hotel.dtos.RoomDto
-import loshica.hotel.models.Room
+import loshica.hotel.domain.models.Room
 import loshica.hotel.shared.Default
 
 class RoomViewModel(override val app: Application): BaseViewModel(app) {

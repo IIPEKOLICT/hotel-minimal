@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import loshica.hotel.R
 import loshica.hotel.databinding.CommentModalBinding
-import loshica.hotel.models.Comment
+import loshica.hotel.domain.models.Comment
 import loshica.hotel.viewModels.CommentViewModel
 import loshica.vendor.view.LOSDialogBuilder
 

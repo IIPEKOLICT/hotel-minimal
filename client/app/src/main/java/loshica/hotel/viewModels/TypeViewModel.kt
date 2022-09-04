@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import loshica.hotel.core.BaseViewModel
-import loshica.hotel.models.Type
+import loshica.hotel.domain.models.Type
 
 class TypeViewModel(override val app: Application): BaseViewModel(app) {
 
