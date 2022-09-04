@@ -1,14 +1,14 @@
 _hotel-minimal_
 
-# Spring boot + native android app
+# Ktor + native android app
 
 Task on subject "Mobile Systems Software" in BSUIR
 
 ### Backend tech stack
 
 - Kotlin
-- Spring Boot
-- Hybernate
+- Ktor
+- Exposed ORM
 - Gradle
 - PostgreSQL
 
@@ -55,7 +55,7 @@ git clone git@github.com:IIPEKOLICT/hotel-minimal.git
 cd hotel-minimal
 ```
 
-### Start backend locally (needed 17 Java)
+### Start backend locally (needed 11+ Java)
 
 ```shell
 cd backend
@@ -63,10 +63,10 @@ cd backend
 ./gradlew bootRun
 ```
 
-### Start backend on heroku command (needed 17 Java)
+### Start backend on heroku command (needed 11+ Java)
 
 ```shell
-java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/backend.jar
+./build/install/backend/bin/backend
 ```
 
 ### Build APK and AAB files
