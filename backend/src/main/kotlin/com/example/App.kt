@@ -1,6 +1,7 @@
 package com.example
 
 import com.example.controllers.*
+import com.example.core.Reflector
 import com.example.dao.DatabaseManager
 import io.github.smiley4.ktorswaggerui.SwaggerUI
 import io.ktor.http.*
@@ -68,18 +69,14 @@ fun Application.configurePlugins() {
 fun Application.init() {
     DatabaseManager.init(environment.config)
 
-    val controllers: Set<BaseController> = setOf(
-        TestController(this),
-        CommentController(this),
-        TypeController(this),
-        RoomController(this)
-    )
-
-    controllers.forEach {
-        with(it) {
-            inject()
-        }
-    }
+    Reflector()
+        .setControllers(
+            TestController(this),
+            CommentController(this),
+            TypeController(this),
+            RoomController(this)
+        )
+        .buildRoutes()
 }
 
 fun Application.launch() {

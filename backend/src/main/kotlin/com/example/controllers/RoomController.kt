@@ -1,5 +1,7 @@
 package com.example.controllers
 
+import com.example.core.annotations.Controller
+import com.example.core.annotations.Handler
 import com.example.dtos.DeleteDto
 import com.example.dtos.RoomDto
 import com.example.errors.ErrorHandler
@@ -10,24 +12,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
-class RoomController(application: Application) : BaseController(application, "rooms") {
-    override val handlers: Set<(route: Route) -> Unit>
-        get() = setOf(
-            { getAll(it) },
-            { getById(it) },
-            { getCommentsByRoom(it) },
-            { create(it) },
-            { updateById(it) },
-            { deleteById(it) }
-        )
+@Controller(route = "rooms")
+class RoomController(application: Application) : BaseController(application) {
 
-    override val swaggerCallback: OpenApiRoute.() -> Unit
-        get() = {
-            tags = listOf("rooms")
-            description = "Room controller"
-        }
-
-    private fun getAll(route: Route) {
+    @Handler
+    fun getAll(route: Route) {
         route.get({ description = "get all rooms" }) {
             try {
                 call.respond(roomService.getAll().map { it.toPopulatedDto() })
@@ -37,7 +26,8 @@ class RoomController(application: Application) : BaseController(application, "ro
         }
     }
 
-    private fun getById(route: Route) {
+    @Handler
+    fun getById(route: Route) {
         route.get("{id}", { description = "get room by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -48,7 +38,8 @@ class RoomController(application: Application) : BaseController(application, "ro
         }
     }
 
-    private fun getCommentsByRoom(route: Route) {
+    @Handler
+    fun getCommentsByRoom(route: Route) {
         route.get("{id}/comments", { description = "get comments by room" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -60,7 +51,8 @@ class RoomController(application: Application) : BaseController(application, "ro
         }
     }
 
-    private fun create(route: Route) {
+    @Handler
+    fun create(route: Route) {
         route.post({ description = "create room" }) {
             try {
                 val dto: RoomDto = call.receive()
@@ -77,7 +69,8 @@ class RoomController(application: Application) : BaseController(application, "ro
         }
     }
 
-    private fun updateById(route: Route) {
+    @Handler
+    fun updateById(route: Route) {
         route.put("{id}", { description = "update room by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -96,7 +89,8 @@ class RoomController(application: Application) : BaseController(application, "ro
         }
     }
 
-    private fun deleteById(route: Route) {
+    @Handler
+    fun deleteById(route: Route) {
         route.delete("{id}", { description = "delete room by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
