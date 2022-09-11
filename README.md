@@ -11,6 +11,7 @@ Task on subject "Mobile Systems Software" in BSUIR
 - Exposed ORM
 - Gradle
 - PostgreSQL
+- SwaggerUI
 
 ### Client tech stack
 
