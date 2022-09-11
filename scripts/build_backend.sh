@@ -6,7 +6,7 @@ cd backend || exit
 
 echo Build fatJAR file...
 
-./gradlew build -x test
+./gradlew buildFatJar
 
 echo Move output backend file to build directory...
 

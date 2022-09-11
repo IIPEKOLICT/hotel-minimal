@@ -1,8 +1,8 @@
 package com.example.dao.interfaces
 
 import com.example.dtos.CommentDto
-import com.example.models.entities.Comment
-import com.example.models.entities.Room
+import com.example.db.entities.Comment
+import com.example.db.entities.Room
 
 interface ICommentService : IBaseService<Comment> {
     suspend fun getByRoomId(roomId: Int): List<Comment>

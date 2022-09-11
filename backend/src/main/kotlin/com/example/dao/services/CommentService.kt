@@ -2,11 +2,11 @@ package com.example.dao.services
 
 import com.example.dao.interfaces.ICommentService
 import com.example.dtos.CommentDto
-import com.example.models.entities.Comment
-import com.example.models.entities.Room
-import com.example.models.tables.Comments
+import com.example.db.entities.Comment
+import com.example.db.entities.Room
+import com.example.db.tables.Comments
 
-object CommentService : BaseService<Comment, Comment.Companion>(Comment), ICommentService {
+class CommentService : BaseService<Comment, Comment.Companion>(Comment), ICommentService {
 
     override suspend fun getByRoomId(roomId: Int): List<Comment> {
         return query {
