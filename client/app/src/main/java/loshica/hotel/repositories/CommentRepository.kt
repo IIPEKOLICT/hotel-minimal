@@ -6,6 +6,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface CommentRepository {
+
     @POST("/comments")
     suspend fun create(@Body dto: Comment): Response<Comment>
 

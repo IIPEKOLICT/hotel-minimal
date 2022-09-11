@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface RoomRepository {
+
     @GET("/rooms")
     suspend fun getAll(): Response<List<Room>>
 

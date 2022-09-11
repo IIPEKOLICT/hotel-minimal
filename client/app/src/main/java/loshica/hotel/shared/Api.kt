@@ -9,32 +9,58 @@ import loshica.hotel.repositories.TypeRepository
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object Api : IApi {
-    private const val BASE_URL: String = BuildConfig.BACKEND_URL;
-    private var httpClient: Retrofit? = null
 
-    private fun getClient(): Retrofit {
-        if (httpClient == null) {
-            httpClient = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(OkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
+    private fun getHttpClient(): Retrofit {
+        val okHttpClient = OkHttpClient()
+            .newBuilder()
+            .readTimeout(TIMEOUT_TIME, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_TIME, TimeUnit.SECONDS)
+            .build()
 
-        return httpClient!!
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
+    private val httpClient: Retrofit = getHttpClient()
+
+    private const val BASE_URL: String = BuildConfig.BACKEND_URL
+    private const val TIMEOUT_TIME = 30L
+
+//    private var httpClient: Retrofit? = null
+
+//    private fun getClient(): Retrofit {
+//        if (httpClient == null) {
+//            val okHttpClient = OkHttpClient()
+//                .newBuilder()
+//                .readTimeout(TIMEOUT_TIME, TimeUnit.SECONDS)
+//                .connectTimeout(TIMEOUT_TIME, TimeUnit.SECONDS)
+//                .build()
+//
+//            httpClient = Retrofit.Builder()
+//                .baseUrl(BASE_URL)
+//                .client(okHttpClient)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//        }
+//
+//        return httpClient!!
+//    }
+
     override val roomRepository: RoomRepository
-        get() = getClient().create(RoomRepository::class.java)
+        get() = httpClient.create(RoomRepository::class.java)
 
     override val typeRepository: TypeRepository
-        get() = getClient().create(TypeRepository::class.java)
+        get() = httpClient.create(TypeRepository::class.java)
 
     override val commentRepository: CommentRepository
-        get() = getClient().create(CommentRepository::class.java)
+        get() = httpClient.create(CommentRepository::class.java)
 
     override val mainRepository: MainRepository
-        get() = getClient().create(MainRepository::class.java)
+        get() = httpClient.create(MainRepository::class.java)
 }

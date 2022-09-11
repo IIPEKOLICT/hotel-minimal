@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface MainRepository {
+    
     @GET("/")
     suspend fun healthCheck(): Response<HealthCheckDto>
 }
