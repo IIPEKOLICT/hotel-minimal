@@ -1,8 +1,8 @@
-package com.example.models.entities
+package com.example.db.entities
 
 import com.example.dtos.TypeDto
-import com.example.models.interfaces.IEntity
-import com.example.models.tables.Types
+import com.example.db.interfaces.IEntity
+import com.example.db.tables.Types
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

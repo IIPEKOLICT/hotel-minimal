@@ -1,8 +1,8 @@
 package com.example.dao
 
-import com.example.models.tables.Comments
-import com.example.models.tables.Rooms
-import com.example.models.tables.Types
+import com.example.db.tables.Comments
+import com.example.db.tables.Rooms
+import com.example.db.tables.Types
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.config.*

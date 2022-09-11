@@ -2,9 +2,9 @@ package com.example.dao.services
 
 import com.example.dtos.TypeDto
 import com.example.dao.interfaces.ITypeService
-import com.example.models.entities.Type
+import com.example.db.entities.Type
 
-object TypeService : BaseService<Type, Type.Companion>(Type), ITypeService {
+class TypeService : BaseService<Type, Type.Companion>(Type), ITypeService {
     override suspend fun create(dto: TypeDto): Type {
         return query {
             repository.new {
