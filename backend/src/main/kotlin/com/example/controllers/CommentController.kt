@@ -1,5 +1,7 @@
 package com.example.controllers
 
+import com.example.core.annotations.Controller
+import com.example.core.annotations.Handler
 import com.example.db.entities.Comment
 import com.example.dtos.CommentDto
 import com.example.dtos.DeleteDto
@@ -14,22 +16,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
-class CommentController(application: Application) : BaseController(application, "comments") {
-    override val handlers: Set<(route: Route) -> Unit>
-        get() = setOf(
-            { getById(it) },
-            { create(it) },
-            { updateById(it) },
-            { deleteById(it) }
-        )
+@Controller(route = "comments")
+class CommentController(application: Application) : BaseController(application) {
 
-    override val swaggerCallback: OpenApiRoute.() -> Unit
-        get() = {
-            tags = listOf("comments")
-            description = "Comment controller"
-        }
-
-    private fun getById(route: Route) {
+    @Handler
+    fun getById(route: Route) {
         route.get("{id}", { description = "get comment by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -40,7 +31,8 @@ class CommentController(application: Application) : BaseController(application, 
         }
     }
 
-    private fun create(route: Route) {
+    @Handler
+    fun create(route: Route) {
         route.post({ description = "create comment" }) {
             try {
                 val dto: CommentDto = call.receive()
@@ -57,7 +49,8 @@ class CommentController(application: Application) : BaseController(application, 
         }
     }
 
-    private fun updateById(route: Route) {
+    @Handler
+    fun updateById(route: Route) {
         route.put("{id}", { description = "update comment by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -72,7 +65,8 @@ class CommentController(application: Application) : BaseController(application, 
         }
     }
 
-    private fun deleteById(route: Route) {
+    @Handler
+    fun deleteById(route: Route) {
         route.delete("{id}", { description = "delete comment by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()

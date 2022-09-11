@@ -1,5 +1,7 @@
 package com.example.controllers
 
+import com.example.core.annotations.Controller
+import com.example.core.annotations.Handler
 import com.example.dtos.DeleteDto
 import com.example.dtos.TypeDto
 import com.example.errors.ErrorHandler
@@ -10,23 +12,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
-class TypeController(application: Application) : BaseController(application, "types") {
-    override val handlers: Set<(route: Route) -> Unit>
-        get() = setOf(
-            { getAll(it) },
-            { getById(it) },
-            { create(it) },
-            { updateById(it) },
-            { deleteById(it) }
-        )
+@Controller(route = "types")
+class TypeController(application: Application) : BaseController(application) {
 
-    override val swaggerCallback: OpenApiRoute.() -> Unit
-        get() = {
-            tags = listOf("types")
-            description = "Type controller"
-        }
-
-    private fun getAll(route: Route) {
+    @Handler
+    fun getAll(route: Route) {
         route.get({ description = "get all types" }) {
             try {
                 call.respond(typeService.getAll().map { it.toDto() })
@@ -36,7 +26,8 @@ class TypeController(application: Application) : BaseController(application, "ty
         }
     }
 
-    private fun getById(route: Route) {
+    @Handler
+    fun getById(route: Route) {
         route.get("{id}", { description = "get type by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -47,7 +38,8 @@ class TypeController(application: Application) : BaseController(application, "ty
         }
     }
 
-    private fun create(route: Route) {
+    @Handler
+    fun create(route: Route) {
         route.post({ description = "create type" }) {
             try {
                 val dto: TypeDto = call.receive()
@@ -58,7 +50,8 @@ class TypeController(application: Application) : BaseController(application, "ty
         }
     }
 
-    private fun updateById(route: Route) {
+    @Handler
+    fun updateById(route: Route) {
         route.put("{id}", { description = "update type by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
@@ -70,7 +63,8 @@ class TypeController(application: Application) : BaseController(application, "ty
         }
     }
 
-    private fun deleteById(route: Route) {
+    @Handler
+    fun deleteById(route: Route) {
         route.delete("{id}", { description = "delete type by id" }) {
             try {
                 val id: Int = call.parameters.getOrFail("id").toInt()
