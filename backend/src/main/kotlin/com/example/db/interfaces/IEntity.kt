@@ -1,4 +1,4 @@
-package com.example.models.interfaces
+package com.example.db.interfaces
 
 interface IEntity<Dto, PopulatedDto> {
     fun toDto(): Dto

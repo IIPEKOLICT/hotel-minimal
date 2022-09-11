@@ -1,4 +1,4 @@
-package com.example.models.tables
+package com.example.db.tables
 
 import org.jetbrains.exposed.dao.id.IntIdTable
 import org.jetbrains.exposed.sql.Column

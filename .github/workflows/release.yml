@@ -43,7 +43,7 @@ jobs:
           stack: 'heroku-22'
           region: 'eu'
           procfile: 'web: ./build/install/backend/bin/backend'
-          healthcheck: '${{ env.BACKEND_URL }}'
+          healthcheck: '${{ env.BACKEND_URL }}/test'
           rollbackonhealthcheckfailed: true
 
   Client:
