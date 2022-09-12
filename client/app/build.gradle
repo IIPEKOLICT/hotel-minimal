@@ -10,12 +10,12 @@ def hasKeystore = keystoreFile.exists() || System.getenv('KEYSTORE_PASSWORD')
 def backendUrl = System.getenv("BACKEND_URL") ?: "http://localhost:5000"
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "hotel.minimal.client"
         minSdk 23
-        targetSdk 32
+        targetSdk 33
         versionCode 3
         versionName "1.1"
 

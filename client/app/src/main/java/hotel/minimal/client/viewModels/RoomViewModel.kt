@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 import hotel.minimal.client.core.BaseViewModel
 import hotel.minimal.client.data.dtos.RoomDto
+import hotel.minimal.client.domain.models.Room
 import hotel.minimal.client.domain.models.RoomPopulated
 import hotel.minimal.client.shared.Default
 
@@ -53,7 +54,7 @@ class RoomViewModel(override val app: Application): BaseViewModel(app) {
         isEdit = value
     }
 
-    private fun createRoom(dto: RoomDto) {
+    private fun createRoom(dto: Room) {
         jobs.add(viewModelScope.launch(Dispatchers.IO) {
             try {
                 api.roomRepository.create(dto).let {
@@ -101,7 +102,7 @@ class RoomViewModel(override val app: Application): BaseViewModel(app) {
         })
     }
 
-    fun onSubmit(dto: RoomDto) = if (!isEdit) createRoom(dto) else changeRoom(dto)
+    fun onSubmit(dto: Room) = if (!isEdit) createRoom(dto) else changeRoom(dto)
 
     fun deleteRoom() {
         val currentRoomId: Int = currentRoom.value?.id ?: return

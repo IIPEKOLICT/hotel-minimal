@@ -76,7 +76,7 @@ class CurrentRoomFragment : Fragment(), View.OnClickListener {
 
                     if (currentRoom.id != -1) {
                         currentRoom.isFree = !currentRoom.isFree
-                        roomViewModel.onSubmit(currentRoom.toDto())
+                        roomViewModel.onSubmit(currentRoom.depopulate())
                     } else {}
                 }
                 it.deleteRoomButton -> {

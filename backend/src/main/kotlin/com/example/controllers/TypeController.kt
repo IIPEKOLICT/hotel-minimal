@@ -12,6 +12,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
+@Suppress("unused")
 @Controller(route = "types")
 class TypeController(application: Application) : BaseController(application) {
 

@@ -16,8 +16,20 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
 
+@Suppress("unused")
 @Controller(route = "comments")
 class CommentController(application: Application) : BaseController(application) {
+
+    @Handler
+    fun getAll(route: Route) {
+        route.get({ description = "get all comments" }) {
+            try {
+                call.respond(commentService.getAll().map { it.toDto() })
+            } catch (e: Exception) {
+                return@get ErrorHandler.handle(call, e)
+            }
+        }
+    }
 
     @Handler
     fun getById(route: Route) {

@@ -14,6 +14,7 @@ import hotel.minimal.client.views.adapters.FragmentAdapter
 import hotel.minimal.client.viewModels.ConnectionViewModel
 import hotel.minimal.client.viewModels.TypeViewModel
 import hotel.minimal.client.views.PageTransformer
+import loshica.client.R
 import loshica.vendor.LOSActivity
 
 class MainActivity : LOSActivity(), IMainActivity {
