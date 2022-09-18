@@ -7,7 +7,7 @@ plugins {
 def keystoreProperties = new Properties()
 def keystoreFile = file('keystore/keystore.properties')
 def hasKeystore = keystoreFile.exists() || System.getenv('KEYSTORE_PASSWORD')
-def backendUrl = System.getenv("BACKEND_URL") ?: "https://iipekolict--hotel-minimal.herokuapp.com"
+def backendUrl = System.getenv("BACKEND_URL") ?: "http://localhost:5000"
 
 android {
     compileSdk 33
