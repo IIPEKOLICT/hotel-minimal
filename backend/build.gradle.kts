@@ -12,7 +12,7 @@ plugins {
     id("io.ktor.plugin") version "2.1.0"
 }
 
-group = "com.example"
+group = "hotel.minimal.backend"
 
 application {
     mainClass.set("io.ktor.server.netty.EngineMain")

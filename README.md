@@ -20,6 +20,7 @@ Task on subject "Mobile Systems Software" in BSUIR
 - Gradle
 - Coroutines
 - Retrofit
+- Dagger
 - MVVM
 
 ### Repository secrets
