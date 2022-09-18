@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hotel-minimal</string>
+    <string name="app_name">Hotel minimal</string>
 
     <string name="room_type_placeholder">Type: unknown</string>
     <string name="room_floor_placeholder">Floor: unknown</string>
@@ -41,6 +41,4 @@
     <string name="create">Create</string>
     <string name="change">Change</string>
     <string name="delete">Delete</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
