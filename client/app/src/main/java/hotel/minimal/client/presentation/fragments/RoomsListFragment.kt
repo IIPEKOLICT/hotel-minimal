@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import hotel.minimal.client.App
 import hotel.minimal.client.databinding.RoomsListFragmentBinding
 import hotel.minimal.client.presentation.adapters.RoomAdapter
-import hotel.minimal.client.presentation.interfaces.IMainActivity
-import hotel.minimal.client.presentation.interfaces.IPickHandler
+import hotel.minimal.client.presentation.interfaces.IViewPagerActivity
 import hotel.minimal.client.domain.models.RoomPopulated
 import hotel.minimal.client.presentation.viewModels.CommentViewModel
 import hotel.minimal.client.presentation.viewModels.RoomViewModel
@@ -19,7 +18,7 @@ import hotel.minimal.client.presentation.modals.RoomModal
 import hotel.minimal.client.presentation.enums.Page
 import javax.inject.Inject
 
-class RoomsListFragment : Fragment(), View.OnClickListener, IPickHandler {
+class RoomsListFragment : Fragment(), View.OnClickListener {
 
     private var layout: RoomsListFragmentBinding? = null
 
@@ -39,17 +38,25 @@ class RoomsListFragment : Fragment(), View.OnClickListener, IPickHandler {
     ): View? {
         (requireActivity().applicationContext as App).rootInjector.inject(this)
         layout = RoomsListFragmentBinding.inflate(inflater, container, false)
-        val roomAdapter = RoomAdapter(this)
+
+        val roomAdapter = RoomAdapter {
+            roomViewModel.setCurrentRoom(it)
+            (activity as? IViewPagerActivity)?.swipe(Page.ROOM)
+        }
 
         with (layout!!) {
             roomRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             roomRecyclerView.adapter = roomAdapter
+            roomRecyclerView.recycledViewPool.setMaxRecycledViews(
+                RoomAdapter.VIEW_TYPE,
+                RoomAdapter.MAX_POOL_SIZE
+            )
         }
 
         layout!!.roomCreateButton.setOnClickListener(this)
 
         roomsListObserver = Observer {
-            roomAdapter.update(it)
+            roomAdapter.submitList(it)
         }
 
         roomObserver = Observer {
@@ -88,10 +95,5 @@ class RoomsListFragment : Fragment(), View.OnClickListener, IPickHandler {
     override fun onDestroyView() {
         super.onDestroyView()
         layout = null
-    }
-
-    override fun onPickCard(position: Int) {
-        roomViewModel.setCurrentRoom(position)
-        (activity as? IMainActivity)?.swipe(Page.ROOM)
     }
 }

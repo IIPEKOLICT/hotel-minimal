@@ -2,26 +2,32 @@ package hotel.minimal.client.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import hotel.minimal.client.databinding.RoomCardBinding
-import hotel.minimal.client.presentation.interfaces.IPickHandler
 import hotel.minimal.client.domain.models.RoomPopulated
+import hotel.minimal.client.presentation.adapters.diffCallbacks.RoomDiffCallback
+import hotel.minimal.client.presentation.adapters.viewHolders.RoomCardViewHolder
 
-class RoomAdapter(private val pickHandler: IPickHandler) : RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
+class RoomAdapter(
+    private val onPick: (position: Int) -> Unit
+) : ListAdapter<RoomPopulated, RoomCardViewHolder>(RoomDiffCallback()) {
 
-    private var rooms: MutableList<RoomPopulated> = mutableListOf()
     private var layout: RoomCardBinding? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        layout = RoomCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(layout!!, pickHandler)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomCardViewHolder {
+        layout = RoomCardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        return RoomCardViewHolder(layout!!, onPick)
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val room: RoomPopulated = rooms[position]
+    override fun onBindViewHolder(holder: RoomCardViewHolder, position: Int) {
+        val room: RoomPopulated = getItem(position)
 
         with (holder.layout) {
             roomCardType.text = "Type: ${room.type.name}"
@@ -31,23 +37,10 @@ class RoomAdapter(private val pickHandler: IPickHandler) : RecyclerView.Adapter<
         }
     }
 
-    override fun getItemCount(): Int = rooms.size
+    override fun getItemViewType(position: Int): Int = VIEW_TYPE
 
-    class ViewHolder internal constructor(
-        val layout: RoomCardBinding,
-        private val pickHandler: IPickHandler
-    ) : RecyclerView.ViewHolder(layout.root), View.OnClickListener {
-
-        override fun onClick(v: View?) {
-            pickHandler.onPickCard(adapterPosition)
-        }
-    }
-
-    fun update(newRooms: List<RoomPopulated>?) {
-        newRooms?.let {
-            rooms.clear()
-            rooms = it.toMutableList()
-            notifyDataSetChanged()
-        }
+    companion object {
+        const val VIEW_TYPE = 1
+        const val MAX_POOL_SIZE = 15
     }
 }

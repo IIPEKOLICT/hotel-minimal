@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import hotel.minimal.client.App
 import hotel.minimal.client.databinding.RoomFragmentBinding
-import hotel.minimal.client.presentation.interfaces.IMainActivity
+import hotel.minimal.client.presentation.interfaces.IViewPagerActivity
 import hotel.minimal.client.domain.models.RoomPopulated
 import hotel.minimal.client.presentation.viewModels.RoomViewModel
 import hotel.minimal.client.presentation.modals.RoomModal
@@ -79,7 +79,7 @@ class RoomFragment : Fragment(), View.OnClickListener {
                 }
                 it.deleteRoomButton -> {
                     roomViewModel.deleteRoom()
-                    (activity as? IMainActivity)?.swipe(Page.ROOMS_LIST)
+                    (activity as? IViewPagerActivity)?.swipe(Page.ROOMS_LIST)
                 }
                 it.editRoomButton -> {
                     RoomModal

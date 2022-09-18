@@ -1,53 +1,40 @@
 package hotel.minimal.client.presentation.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import hotel.minimal.client.databinding.CommentCardBinding
-import hotel.minimal.client.presentation.interfaces.IPickHandler
 import hotel.minimal.client.domain.models.Comment
+import hotel.minimal.client.presentation.adapters.diffCallbacks.CommentDiffCallback
+import hotel.minimal.client.presentation.adapters.viewHolders.CommentCardViewHolder
 
 class CommentAdapter(
-    private val pickHandler: IPickHandler
-) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+    private val onPick: (position: Int) -> Unit
+) : ListAdapter<Comment, CommentCardViewHolder>(CommentDiffCallback()) {
 
-    private var comments: MutableList<Comment> = mutableListOf()
     private var layout: CommentCardBinding? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        layout = CommentCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(layout!!, pickHandler)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentCardViewHolder {
+        layout = CommentCardBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+
+        return CommentCardViewHolder(layout!!, onPick)
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val comment: Comment = comments[position]
-
+    override fun onBindViewHolder(holder: CommentCardViewHolder, position: Int) {
         with (holder.layout) {
-            commentCardContent.text = comment.content
+            commentCardContent.text = getItem(position).content
             root.setOnClickListener(holder)
         }
     }
 
-    override fun getItemCount(): Int = comments.size
+    override fun getItemViewType(position: Int): Int = VIEW_TYPE
 
-    class ViewHolder internal constructor(
-        val layout: CommentCardBinding,
-        private val pickHandler: IPickHandler
-    ) : RecyclerView.ViewHolder(layout.root), View.OnClickListener {
-
-        override fun onClick(v: View?) {
-            pickHandler.onPickCard(adapterPosition)
-        }
-    }
-
-    fun update(newComments: List<Comment>?) {
-        newComments?.let {
-            comments.clear()
-            comments = it.toMutableList()
-            notifyDataSetChanged()
-        }
+    companion object {
+        const val VIEW_TYPE = 1
+        const val MAX_POOL_SIZE = 15
     }
 }

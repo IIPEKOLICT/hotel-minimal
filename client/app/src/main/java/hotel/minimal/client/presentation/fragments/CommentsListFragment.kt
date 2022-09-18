@@ -9,14 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hotel.minimal.client.App
 import hotel.minimal.client.databinding.CommentsListFragmentBinding
-import hotel.minimal.client.presentation.interfaces.IPickHandler
 import hotel.minimal.client.domain.models.Comment
 import hotel.minimal.client.presentation.viewModels.CommentViewModel
 import hotel.minimal.client.presentation.adapters.CommentAdapter
 import hotel.minimal.client.presentation.modals.CommentModal
 import javax.inject.Inject
 
-class CommentsListFragment : Fragment(), View.OnClickListener, IPickHandler {
+class CommentsListFragment : Fragment(), View.OnClickListener {
 
     private var layout: CommentsListFragmentBinding? = null
 
@@ -31,15 +30,28 @@ class CommentsListFragment : Fragment(), View.OnClickListener, IPickHandler {
     ): View? {
         (requireActivity().applicationContext as App).rootInjector.inject(this)
         layout = CommentsListFragmentBinding.inflate(inflater, container, false)
-        val commentAdapter = CommentAdapter(this)
+
+        val commentAdapter = CommentAdapter {
+            commentViewModel.setCurrentComment(it)
+            CommentModal
+                .newInstance(true)
+                .show(requireActivity().supportFragmentManager, null)
+        }
 
         with (layout!!) {
             commentRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             commentRecyclerView.adapter = commentAdapter
+            commentRecyclerView.recycledViewPool.setMaxRecycledViews(
+                CommentAdapter.VIEW_TYPE,
+                CommentAdapter.MAX_POOL_SIZE
+            )
         }
 
         layout!!.commentCreateButton.setOnClickListener(this)
-        commentsListObserver = Observer { commentAdapter.update(it) }
+
+        commentsListObserver = Observer {
+            commentAdapter.submitList(it)
+        }
 
         return layout?.root
     }
@@ -76,12 +88,5 @@ class CommentsListFragment : Fragment(), View.OnClickListener, IPickHandler {
     override fun onDestroyView() {
         super.onDestroyView()
         layout = null
-    }
-
-    override fun onPickCard(position: Int) {
-        commentViewModel.setCurrentComment(position)
-        CommentModal
-            .newInstance(true)
-            .show(requireActivity().supportFragmentManager, null)
     }
 }

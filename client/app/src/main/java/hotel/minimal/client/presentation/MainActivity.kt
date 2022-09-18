@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import hotel.minimal.client.App
 import hotel.minimal.client.R
 import hotel.minimal.client.databinding.MainActivityBinding
-import hotel.minimal.client.presentation.interfaces.IMainActivity
+import hotel.minimal.client.presentation.interfaces.IViewPagerActivity
 import hotel.minimal.client.presentation.adapters.FragmentAdapter
 import hotel.minimal.client.presentation.viewModels.ConnectionViewModel
 import hotel.minimal.client.presentation.animation.PageTransformer
@@ -20,7 +20,7 @@ import hotel.minimal.client.presentation.viewModels.TypeViewModel
 import loshica.vendor.LOSActivity
 import javax.inject.Inject
 
-class MainActivity : LOSActivity(), IMainActivity {
+class MainActivity : LOSActivity(), IViewPagerActivity {
 
     private var layout: MainActivityBinding? = null
 
