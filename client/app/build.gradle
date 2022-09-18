@@ -1,12 +1,13 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 def keystoreProperties = new Properties()
 def keystoreFile = file('keystore/keystore.properties')
 def hasKeystore = keystoreFile.exists() || System.getenv('KEYSTORE_PASSWORD')
-def backendUrl = System.getenv("BACKEND_URL") ?: "http://localhost:5000"
+def backendUrl = System.getenv("BACKEND_URL") ?: "https://iipekolict--hotel-minimal.herokuapp.com"
 
 android {
     compileSdk 33
@@ -90,6 +91,10 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'com.android.databinding:viewbinding:7.3.0'
+
+    implementation 'com.google.dagger:dagger-android:2.43.2'
+    kapt 'com.google.dagger:dagger-android-processor:2.43.2'
+    kapt 'com.google.dagger:dagger-compiler:2.43.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

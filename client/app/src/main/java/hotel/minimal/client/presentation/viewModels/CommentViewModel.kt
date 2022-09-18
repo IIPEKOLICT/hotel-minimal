@@ -4,20 +4,23 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import hotel.minimal.client.data.DataSource
 import kotlinx.coroutines.*
 import hotel.minimal.client.domain.models.Comment
 import hotel.minimal.client.domain.DefaultValue
 import hotel.minimal.client.domain.useCases.comment.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CommentViewModel(override val app: Application): BaseViewModel(app) {
+@Singleton
+class CommentViewModel @Inject constructor(
+    override val app: Application,
+    private val getRoomCommentsListUseCase: GetRoomCommentsListUseCase,
+    private val createCommentUseCase: CreateCommentUseCase,
+    private val updateCommentUseCase: UpdateCommentUseCase,
+    private val deleteCommentUseCase: DeleteCommentUseCase
+): BaseViewModel(app) {
 
     private val currentComment: MutableLiveData<Comment> = MutableLiveData(DefaultValue.COMMENT)
-
-    private val getRoomCommentsListUseCase = GetRoomCommentsListUseCase(DataSource.commentService)
-    private val createCommentUseCase = CreateCommentUseCase(DataSource.commentService)
-    private val updateCommentUseCase = UpdateCommentUseCase(DataSource.commentService)
-    private val deleteCommentUseCase = DeleteCommentUseCase(DataSource.commentService)
 
     val commentsList: LiveData<List<Comment>>
         get() = getRoomCommentsListUseCase.liveData

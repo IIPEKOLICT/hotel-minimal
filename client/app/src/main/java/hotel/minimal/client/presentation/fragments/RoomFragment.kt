@@ -6,19 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import hotel.minimal.client.App
 import hotel.minimal.client.databinding.RoomFragmentBinding
 import hotel.minimal.client.presentation.interfaces.IMainActivity
 import hotel.minimal.client.domain.models.RoomPopulated
 import hotel.minimal.client.presentation.viewModels.RoomViewModel
 import hotel.minimal.client.presentation.modals.RoomModal
 import hotel.minimal.client.presentation.enums.Page
+import javax.inject.Inject
 
 class RoomFragment : Fragment(), View.OnClickListener {
 
     private var layout: RoomFragmentBinding? = null
-    private val roomViewModel: RoomViewModel by activityViewModels()
+
+    @Inject
+    lateinit var roomViewModel: RoomViewModel
 
     private var roomObserver: Observer<RoomPopulated>? = null
 
@@ -28,6 +31,7 @@ class RoomFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity().applicationContext as App).rootInjector.inject(this)
         layout = RoomFragmentBinding.inflate(inflater, container, false)
 
         with (layout!!) {

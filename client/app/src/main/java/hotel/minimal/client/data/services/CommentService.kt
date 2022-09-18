@@ -3,8 +3,11 @@ package hotel.minimal.client.data.services
 import hotel.minimal.client.data.repositories.CommentRepository
 import hotel.minimal.client.domain.interfaces.ICommentService
 import hotel.minimal.client.domain.models.Comment
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class CommentService(
+@Singleton
+class CommentService @Inject constructor(
     private val commentRepository: CommentRepository
 ) : CrudService<Comment, Comment>(), ICommentService {
 

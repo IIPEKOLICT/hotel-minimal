@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import hotel.minimal.client.App
 import hotel.minimal.client.R
 import hotel.minimal.client.databinding.RoomModalBinding
 import hotel.minimal.client.domain.models.RoomPopulated
@@ -18,13 +18,17 @@ import hotel.minimal.client.domain.models.Room
 import hotel.minimal.client.presentation.viewModels.RoomViewModel
 import hotel.minimal.client.presentation.viewModels.TypeViewModel
 import loshica.vendor.view.LOSDialogBuilder
+import javax.inject.Inject
 
 class RoomModal : DialogFragment(), View.OnClickListener {
 
     private var layout: RoomModalBinding? = null
 
-    private val roomViewModel: RoomViewModel by activityViewModels()
-    private val typeViewModel: TypeViewModel by activityViewModels()
+    @Inject
+    lateinit var roomViewModel: RoomViewModel
+
+    @Inject
+    lateinit var typeViewModel: TypeViewModel
 
     private var typesListObserver: Observer<List<Type>>? = null
 
@@ -32,6 +36,7 @@ class RoomModal : DialogFragment(), View.OnClickListener {
     private var isEdit: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (requireActivity().applicationContext as App).rootInjector.inject(this)
         super.onCreate(savedInstanceState)
 
         arguments?.let {

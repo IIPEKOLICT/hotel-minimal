@@ -5,8 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import hotel.minimal.client.data.repositories.TestRepository
 import hotel.minimal.client.domain.interfaces.ITestService
 import kotlinx.coroutines.delay
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TestService(private val repository: TestRepository) : BaseService(), ITestService {
+@Singleton
+class TestService @Inject constructor(
+    private val repository: TestRepository
+) : BaseService(), ITestService {
 
     private val hasConnection: MutableLiveData<Boolean> = MutableLiveData(true)
 

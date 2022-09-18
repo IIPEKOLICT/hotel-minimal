@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import hotel.minimal.client.App
 import hotel.minimal.client.databinding.RoomsListFragmentBinding
 import hotel.minimal.client.presentation.adapters.RoomAdapter
 import hotel.minimal.client.presentation.interfaces.IMainActivity
@@ -17,12 +17,17 @@ import hotel.minimal.client.presentation.viewModels.CommentViewModel
 import hotel.minimal.client.presentation.viewModels.RoomViewModel
 import hotel.minimal.client.presentation.modals.RoomModal
 import hotel.minimal.client.presentation.enums.Page
+import javax.inject.Inject
 
 class RoomsListFragment : Fragment(), View.OnClickListener, IPickHandler {
 
     private var layout: RoomsListFragmentBinding? = null
-    private val roomViewModel: RoomViewModel by activityViewModels()
-    private val commentViewModel: CommentViewModel by activityViewModels()
+
+    @Inject
+    lateinit var roomViewModel: RoomViewModel
+
+    @Inject
+    lateinit var commentViewModel: CommentViewModel
 
     private var roomsListObserver: Observer<List<RoomPopulated>>? = null
     private var roomObserver: Observer<RoomPopulated>? = null
@@ -32,6 +37,7 @@ class RoomsListFragment : Fragment(), View.OnClickListener, IPickHandler {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity().applicationContext as App).rootInjector.inject(this)
         layout = RoomsListFragmentBinding.inflate(inflater, container, false)
         val roomAdapter = RoomAdapter(this)
 

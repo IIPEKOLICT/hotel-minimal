@@ -5,20 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import hotel.minimal.client.App
 import hotel.minimal.client.databinding.CommentsListFragmentBinding
 import hotel.minimal.client.presentation.interfaces.IPickHandler
 import hotel.minimal.client.domain.models.Comment
 import hotel.minimal.client.presentation.viewModels.CommentViewModel
 import hotel.minimal.client.presentation.adapters.CommentAdapter
 import hotel.minimal.client.presentation.modals.CommentModal
+import javax.inject.Inject
 
 class CommentsListFragment : Fragment(), View.OnClickListener, IPickHandler {
 
     private var layout: CommentsListFragmentBinding? = null
-    private val commentViewModel: CommentViewModel by activityViewModels()
+
+    @Inject
+    lateinit var commentViewModel: CommentViewModel
 
     private var commentsListObserver: Observer<List<Comment>>? = null
 
@@ -26,6 +29,7 @@ class CommentsListFragment : Fragment(), View.OnClickListener, IPickHandler {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity().applicationContext as App).rootInjector.inject(this)
         layout = CommentsListFragmentBinding.inflate(inflater, container, false)
         val commentAdapter = CommentAdapter(this)
 

@@ -3,8 +3,11 @@ package hotel.minimal.client.data.services
 import hotel.minimal.client.data.repositories.TypeRepository
 import hotel.minimal.client.domain.interfaces.ITypeService
 import hotel.minimal.client.domain.models.Type
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TypeService(
+@Singleton
+class TypeService @Inject constructor(
     private val typeRepository: TypeRepository
 ) : CrudService<Type, Type>(), ITypeService {
 

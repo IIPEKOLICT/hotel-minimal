@@ -2,11 +2,11 @@ package hotel.minimal.client.presentation
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import hotel.minimal.client.App
 import hotel.minimal.client.R
 import hotel.minimal.client.databinding.MainActivityBinding
 import hotel.minimal.client.presentation.interfaces.IMainActivity
@@ -14,16 +14,32 @@ import hotel.minimal.client.presentation.adapters.FragmentAdapter
 import hotel.minimal.client.presentation.viewModels.ConnectionViewModel
 import hotel.minimal.client.presentation.animation.PageTransformer
 import hotel.minimal.client.presentation.enums.Page
+import hotel.minimal.client.presentation.viewModels.CommentViewModel
+import hotel.minimal.client.presentation.viewModels.RoomViewModel
+import hotel.minimal.client.presentation.viewModels.TypeViewModel
 import loshica.vendor.LOSActivity
+import javax.inject.Inject
 
 class MainActivity : LOSActivity(), IMainActivity {
 
     private var layout: MainActivityBinding? = null
-    private val connectionViewModel: ConnectionViewModel by viewModels()
+
+    @Inject
+    lateinit var connectionViewModel: ConnectionViewModel
+
+    @Inject
+    lateinit var typeViewModel: TypeViewModel
+
+    @Inject
+    lateinit var commentViewModel: CommentViewModel
+
+    @Inject
+    lateinit var roomViewModel: RoomViewModel
 
     private var hasConnectionObserver: Observer<Boolean>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as App).rootInjector.inject(this)
         super.onCreate(savedInstanceState)
 
         layout = MainActivityBinding.inflate(layoutInflater)

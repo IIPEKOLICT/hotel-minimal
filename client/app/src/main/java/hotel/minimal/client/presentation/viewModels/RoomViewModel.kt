@@ -4,22 +4,25 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import hotel.minimal.client.data.DataSource
 import kotlinx.coroutines.*
 import hotel.minimal.client.domain.models.Room
 import hotel.minimal.client.domain.models.RoomPopulated
 import hotel.minimal.client.domain.DefaultValue
 import hotel.minimal.client.domain.useCases.room.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RoomViewModel(override val app: Application): BaseViewModel(app) {
+@Singleton
+class RoomViewModel @Inject constructor(
+    override val app: Application,
+    private val getRoomsListUseCase: GetRoomsListUseCase,
+    private val getRoomUseCase: GetRoomUseCase,
+    private val createRoomUseCase: CreateRoomUseCase,
+    private val updateRoomUseCase: UpdateRoomUseCase,
+    private val deleteRoomUseCase: DeleteRoomUseCase
+): BaseViewModel(app) {
 
     private val currentRoom: MutableLiveData<RoomPopulated> = MutableLiveData(DefaultValue.ROOM)
-
-    private val getRoomsListUseCase = GetRoomsListUseCase(DataSource.roomService)
-    private val getRoomUseCase = GetRoomUseCase(DataSource.roomService)
-    private val createRoomUseCase = CreateRoomUseCase(DataSource.roomService)
-    private val updateRoomUseCase = UpdateRoomUseCase(DataSource.roomService)
-    private val deleteRoomUseCase = DeleteRoomUseCase(DataSource.roomService)
 
     val roomsList: LiveData<List<RoomPopulated>>
         get() = getRoomsListUseCase.liveData

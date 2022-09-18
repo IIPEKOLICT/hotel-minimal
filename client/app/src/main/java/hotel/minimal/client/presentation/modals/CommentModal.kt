@@ -5,25 +5,28 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import hotel.minimal.client.App
 import hotel.minimal.client.R
 import hotel.minimal.client.databinding.CommentModalBinding
 import hotel.minimal.client.domain.models.Comment
 import hotel.minimal.client.presentation.viewModels.CommentViewModel
 import loshica.vendor.view.LOSDialogBuilder
+import javax.inject.Inject
 
 class CommentModal : DialogFragment() {
 
     private var layout: CommentModalBinding? = null
 
-    private val commentViewModel: CommentViewModel by activityViewModels()
+    @Inject
+    lateinit var commentViewModel: CommentViewModel
 
     private var commentObserver: Observer<Comment>? = null
 
     private var isEdit: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (requireActivity().applicationContext as App).rootInjector.inject(this)
         super.onCreate(savedInstanceState)
 
         arguments?.let {

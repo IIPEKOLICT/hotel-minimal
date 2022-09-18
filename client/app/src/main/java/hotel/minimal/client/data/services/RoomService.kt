@@ -4,8 +4,11 @@ import hotel.minimal.client.data.repositories.RoomRepository
 import hotel.minimal.client.domain.interfaces.IRoomService
 import hotel.minimal.client.domain.models.Room
 import hotel.minimal.client.domain.models.RoomPopulated
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RoomService(
+@Singleton
+class RoomService @Inject constructor(
     private val roomRepository: RoomRepository
 ) : CrudService<RoomPopulated, Room>(), IRoomService {
 
