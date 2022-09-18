@@ -1,11 +1,13 @@
 package hotel.minimal.client.domain.useCases.comment
 
-import hotel.minimal.client.domain.interfaces.ICommentRepository
+import hotel.minimal.client.domain.interfaces.ICommentService
 import hotel.minimal.client.domain.models.Comment
+import hotel.minimal.client.domain.useCases.BaseGetListUseCase
 
-class GetCommentsListUseCase(private val commentRepository: ICommentRepository) {
+class GetCommentsListUseCase(private val commentService: ICommentService) :
+    BaseGetListUseCase<Comment, Comment>(commentService) {
 
-    suspend fun getCommentsList(): List<Comment> {
-        return commentRepository.getAll()
+    suspend fun getCommentsList() {
+        commentService.getAll()
     }
 }

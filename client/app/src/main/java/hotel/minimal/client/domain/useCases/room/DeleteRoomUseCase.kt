@@ -1,10 +1,10 @@
 package hotel.minimal.client.domain.useCases.room
 
-import hotel.minimal.client.domain.interfaces.IRoomRepository
+import hotel.minimal.client.domain.interfaces.IRoomService
 
-class DeleteRoomUseCase(private val roomRepository: IRoomRepository) {
+class DeleteRoomUseCase(private val roomService: IRoomService) {
 
-    suspend fun deleteRoom(id: Int): Int {
-        return roomRepository.deleteById(id)
+    suspend fun deleteRoom(id: Int) {
+        roomService.deleteById(id)
     }
 }

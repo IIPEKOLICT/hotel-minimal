@@ -1,10 +1,14 @@
 package hotel.minimal.client.domain.useCases
 
-import hotel.minimal.client.domain.interfaces.ITestRepository
+import androidx.lifecycle.LiveData
+import hotel.minimal.client.domain.interfaces.ITestService
 
-class HealthCheckUseCase(private val repository: ITestRepository) {
+class HealthCheckUseCase(private val testService: ITestService) {
 
-    suspend fun healthCheck(): Boolean {
-        return repository.healthCheck()
+    val hasConnection: LiveData<Boolean>
+        get() = testService.liveData
+
+    suspend fun healthCheck() {
+        testService.healthCheck()
     }
 }

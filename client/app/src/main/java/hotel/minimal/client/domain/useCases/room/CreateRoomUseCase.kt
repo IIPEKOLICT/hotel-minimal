@@ -1,12 +1,11 @@
 package hotel.minimal.client.domain.useCases.room
 
-import hotel.minimal.client.domain.interfaces.IRoomRepository
+import hotel.minimal.client.domain.interfaces.IRoomService
 import hotel.minimal.client.domain.models.Room
-import hotel.minimal.client.domain.models.RoomPopulated
 
-class CreateRoomUseCase(private val roomRepository: IRoomRepository) {
+class CreateRoomUseCase(private val roomService: IRoomService) {
 
-    suspend fun createRoom(dto: Room): RoomPopulated {
-        return roomRepository.create(dto)
+    suspend fun createRoom(dto: Room) {
+        roomService.create(dto)
     }
 }

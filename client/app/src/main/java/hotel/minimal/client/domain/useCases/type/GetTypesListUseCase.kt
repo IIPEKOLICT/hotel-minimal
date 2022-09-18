@@ -1,11 +1,13 @@
 package hotel.minimal.client.domain.useCases.type
 
-import hotel.minimal.client.domain.interfaces.ITypeRepository
+import hotel.minimal.client.domain.interfaces.ITypeService
 import hotel.minimal.client.domain.models.Type
+import hotel.minimal.client.domain.useCases.BaseGetListUseCase
 
-class GetTypesListUseCase(private val typeRepository: ITypeRepository) {
+class GetTypesListUseCase(private val typeService: ITypeService) :
+    BaseGetListUseCase<Type, Type>(typeService) {
 
-    suspend fun getTypesList(): List<Type> {
-        return typeRepository.getAll()
+    suspend fun getTypesList() {
+        typeService.getAll()
     }
 }

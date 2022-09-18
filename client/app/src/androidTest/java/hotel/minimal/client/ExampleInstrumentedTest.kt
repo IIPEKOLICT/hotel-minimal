@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("loshica.hotel", appContext.packageName)
+        assertEquals("hotel.minimal.client", appContext.packageName)
     }
 }

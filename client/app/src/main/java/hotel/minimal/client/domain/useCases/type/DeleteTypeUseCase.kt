@@ -1,10 +1,10 @@
 package hotel.minimal.client.domain.useCases.type
 
-import hotel.minimal.client.domain.interfaces.ITypeRepository
+import hotel.minimal.client.domain.interfaces.ITypeService
 
-class DeleteTypeUseCase(private val typeRepository: ITypeRepository) {
+class DeleteTypeUseCase(private val typeService: ITypeService) {
 
-    suspend fun deleteType(id: Int): Int {
-        return typeRepository.deleteById(id)
+    suspend fun deleteType(id: Int) {
+        typeService.deleteById(id)
     }
 }

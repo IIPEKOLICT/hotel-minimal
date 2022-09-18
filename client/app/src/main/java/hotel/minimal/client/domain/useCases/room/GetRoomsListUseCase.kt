@@ -1,11 +1,14 @@
 package hotel.minimal.client.domain.useCases.room
 
-import hotel.minimal.client.domain.interfaces.IRoomRepository
+import hotel.minimal.client.domain.interfaces.IRoomService
+import hotel.minimal.client.domain.models.Room
 import hotel.minimal.client.domain.models.RoomPopulated
+import hotel.minimal.client.domain.useCases.BaseGetListUseCase
 
-class GetRoomsListUseCase(private val roomRepository: IRoomRepository) {
+class GetRoomsListUseCase(private val roomService: IRoomService) :
+    BaseGetListUseCase<RoomPopulated, Room>(roomService) {
 
-    suspend fun getRoomsList(): List<RoomPopulated> {
-        return roomRepository.getAll()
+    suspend fun getRoomsList() {
+        roomService.getAll()
     }
 }

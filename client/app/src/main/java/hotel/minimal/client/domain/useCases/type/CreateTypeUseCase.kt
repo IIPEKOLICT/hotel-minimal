@@ -1,11 +1,11 @@
 package hotel.minimal.client.domain.useCases.type
 
-import hotel.minimal.client.domain.interfaces.ITypeRepository
+import hotel.minimal.client.domain.interfaces.ITypeService
 import hotel.minimal.client.domain.models.Type
 
-class CreateTypeUseCase(private val typeRepository: ITypeRepository) {
+class CreateTypeUseCase(private val typeService: ITypeService) {
 
-    suspend fun createType(type: Type): Type {
-        return typeRepository.create(type)
+    suspend fun createType(type: Type) {
+        return typeService.create(type)
     }
 }
